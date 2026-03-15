@@ -1,0 +1,222 @@
+/* ══════════════════════════════════════════
+   styles/components.css
+   Reusable UI component styles:
+   Nav, Cards, Buttons, Tabs, Toast,
+   Upload zone, Chatbot, Weather widget,
+   Analysis animations, History list.
+   ══════════════════════════════════════════ */
+
+/* ── Navigation ── */
+.nav {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.nav-logo { display: flex; align-items: center; gap: 8px; font-size: 18px; font-weight: 600; color: var(--green-d); cursor: pointer; }
+.nav-tabs  { display: flex; gap: 4px; }
+.ntab {
+  padding: 6px 14px; border-radius: 99px; font-size: 13px; font-weight: 500;
+  cursor: pointer; border: none; background: transparent; color: var(--muted); transition: all .15s;
+}
+.ntab:hover  { background: var(--green-l); color: var(--green-d); }
+.ntab.active { background: var(--green); color: #fff; }
+.lang-btn {
+  padding: 5px 14px; border-radius: 99px; border: 1.5px solid var(--green);
+  background: transparent; font-size: 12px; font-weight: 600; cursor: pointer; color: var(--green); transition: all .15s;
+}
+.lang-btn:hover { background: var(--green); color: #fff; }
+.dark-btn {
+  width: 34px; height: 34px; border-radius: 50%; border: 1.5px solid var(--border);
+  background: var(--surface); cursor: pointer; display: flex; align-items: center;
+  justify-content: center; font-size: 16px; transition: all .2s; color: var(--text);
+}
+.dark-btn:hover { border-color: var(--green); background: var(--green-l); }
+
+/* ── Cards ── */
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 1.5rem; margin-bottom: 1rem; }
+.card-title { font-size: 16px; font-weight: 600; margin-bottom: 1rem; }
+.fcard {
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--r);
+  padding: 1.25rem; cursor: pointer; transition: all .2s;
+}
+.fcard:hover { border-color: var(--green); transform: translateY(-2px); box-shadow: 0 4px 20px rgba(29,158,117,.12); }
+.ficon { width: 44px; height: 44px; border-radius: var(--rs); display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 10px; }
+
+/* ── Buttons ── */
+.btn { padding: 8px 18px; border-radius: 99px; font-size: 13px; font-weight: 500; cursor: pointer; border: none; transition: all .15s; display: inline-flex; align-items: center; gap: 5px; }
+.btn-p                 { background: var(--green); color: #fff; }
+.btn-p:hover           { background: var(--green-d); }
+.btn-p:disabled        { background: #ccc; cursor: not-allowed; }
+.btn-o                 { background: transparent; color: var(--text); border: 1px solid var(--border); }
+.btn-o:hover           { background: var(--green-l); border-color: var(--green); color: var(--green-d); }
+
+/* ── Tabs ── */
+.tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--border); margin-bottom: 1.5rem; }
+.tab {
+  padding: 8px 16px; font-size: 13px; font-weight: 500;
+  cursor: pointer; border-bottom: 2px solid transparent; color: var(--muted); transition: all .15s;
+}
+.tab.active { color: var(--green); border-bottom-color: var(--green); }
+
+/* ── Toast notification ── */
+.toast {
+  position: fixed; top: 70px; right: 1rem;
+  background: var(--green-d); color: #fff;
+  padding: 12px 18px; border-radius: var(--r); font-size: 13px; font-weight: 500;
+  z-index: 999; animation: toast-in .3s ease; max-width: 300px; line-height: 1.4;
+}
+@keyframes toast-in { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
+/* ── Step indicator ── */
+.steps { display: flex; align-items: center; gap: 6px; margin-bottom: 1.5rem; flex-wrap: wrap; }
+.sdot  { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; transition: all .3s; }
+.sline { flex: 1; height: 1px; min-width: 20px; transition: background .5s; }
+
+/* ── Severity / Status badges ── */
+.sbadge   { padding: 5px 13px; border-radius: 99px; font-size: 12px; font-weight: 700; white-space: nowrap; }
+.s-red    { background: var(--red-l);   color: var(--red-d);   }
+.s-orange { background: var(--amber-l); color: var(--amber-d); }
+.s-green  { background: var(--green-l); color: var(--green-d); }
+
+/* ── Confidence / progress bars ── */
+.cbar-wrap .cbar-lbl { font-size: 11px; color: var(--muted); margin-bottom: 3px; display: flex; justify-content: space-between; }
+.cbar  { height: 6px; background: rgba(0,0,0,.08); border-radius: 99px; overflow: hidden; }
+.cfill { height: 100%; border-radius: 99px; transition: width 1s ease; }
+.rbar-wrap { margin-top: 12px; }
+.rbar  { height: 5px; background: rgba(0,0,0,.07); border-radius: 99px; overflow: hidden; margin-top: 4px; }
+.rfill { height: 100%; background: var(--green); border-radius: 99px; transition: width 1.2s ease .3s; }
+
+/* ── Upload zone ── */
+.upzone {
+  border: 2px dashed rgba(29,158,117,.3); border-radius: var(--r);
+  padding: 3rem 2rem; text-align: center; cursor: pointer; transition: all .2s;
+  background: var(--green-l);
+}
+.upzone:hover, .upzone.drag { border-color: var(--green); background: #d0efe5; }
+.up-icon  { font-size: 52px; margin-bottom: 1rem; animation: bob 2.4s ease-in-out infinite; }
+@keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+.up-title { font-size: 17px; font-weight: 600; color: var(--green-d); margin-bottom: 6px; }
+.up-sub   { font-size: 13px; color: var(--muted); }
+.up-btns  { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-top: 1.25rem; }
+.up-btn     { padding: 10px 22px; background: var(--green); color: #fff; border: none; border-radius: 99px; font-size: 14px; font-weight: 600; cursor: pointer; }
+.up-btn-sec { padding: 10px 22px; background: transparent; color: var(--green-d); border: 1.5px solid var(--green); border-radius: 99px; font-size: 14px; font-weight: 600; cursor: pointer; }
+
+/* ── Image preview ── */
+.img-wrap { position: relative; margin-bottom: 1rem; }
+.img-prev { width: 100%; max-height: 240px; object-fit: cover; border-radius: var(--r); display: block; }
+.img-ovl  { position: absolute; inset: 0; background: rgba(0,0,0,.4); border-radius: var(--r); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity .2s; cursor: pointer; }
+.img-wrap:hover .img-ovl { opacity: 1; }
+.img-ovl span { color: #fff; font-size: 13px; font-weight: 500; }
+
+/* ── Analysis animation ── */
+.analyzing { text-align: center; padding: 2.5rem 1rem; }
+.aring { width: 56px; height: 56px; border: 3px solid var(--green-l); border-top-color: var(--green); border-radius: 50%; animation: spin .8s linear infinite; margin: 0 auto 1rem; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.adots span { display: inline-block; width: 6px; height: 6px; background: var(--green); border-radius: 50%; margin: 0 3px; animation: blink 1.2s ease-in-out infinite; }
+.adots span:nth-child(2) { animation-delay: .2s; }
+.adots span:nth-child(3) { animation-delay: .4s; }
+@keyframes blink { 0%,80%,100% { opacity: .2; } 40% { opacity: 1; } }
+.astep { display: flex; align-items: center; gap: 6px; padding: 3px 0; font-size: 12px; color: var(--muted); }
+
+/* ── Result card (disease) ── */
+.rcard   { border-radius: var(--r); overflow: hidden; border: 1px solid var(--border); animation: fadein .4s ease; }
+@keyframes fadein { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+.rheader { padding: 1.25rem 1.5rem; display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+.rdisease { font-size: 21px; font-weight: 600; margin-bottom: 3px; line-height: 1.3; }
+.rcrop   { font-size: 13px; color: var(--muted); margin-bottom: 8px; }
+.tsec    { padding: 1.25rem 1.5rem; border-top: 1px solid var(--border); }
+.tlabel  { font-size: 10px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: var(--muted); margin-bottom: 5px; }
+.ttext   { font-size: 14px; line-height: 1.65; }
+.ttext.te { font-family: 'Tiro Devanagari Telugu', serif; font-size: 15px; }
+.tgrid   { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+.titem   { background: var(--bg); border-radius: var(--rs); padding: 10px 12px; }
+.titem-label { font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 3px; }
+.titem-val   { font-size: 13px; font-weight: 500; }
+.titem-val.te { font-family: 'Tiro Devanagari Telugu', serif; }
+.ractions { display: flex; gap: 8px; flex-wrap: wrap; padding: 1.25rem 1.5rem; border-top: 1px solid var(--border); background: var(--bg); }
+
+/* ── Language toggle pill ── */
+.ltoggle { display: inline-flex; background: var(--bg); border: 1px solid var(--border); border-radius: 99px; padding: 3px; gap: 2px; }
+.lopt { padding: 5px 14px; border-radius: 99px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all .15s; color: var(--muted); border: none; background: transparent; }
+.lopt.active { background: var(--surface); color: var(--green-d); box-shadow: 0 1px 4px rgba(0,0,0,.1); }
+.te-pill { font-family: 'Tiro Devanagari Telugu', serif; font-size: 13px; color: var(--green-d); background: var(--green-l); padding: 5px 12px; border-radius: var(--rs); display: inline-block; margin-top: 8px; line-height: 1.6; }
+
+/* ── Diagnosis history ── */
+.hlist  { display: flex; flex-direction: column; }
+.hitem  { display: flex; align-items: center; gap: 12px; padding: 11px 8px; border-bottom: 1px solid var(--border); cursor: pointer; border-radius: var(--rs); transition: background .12s; }
+.hitem:hover   { background: var(--bg); }
+.hitem:last-child { border-bottom: none; }
+.hdot   { width: 10px; height: 10px; min-width: 10px; border-radius: 50%; }
+.hinfo  { flex: 1; }
+.hname  { font-size: 13px; font-weight: 600; }
+.hname.te { font-family: 'Tiro Devanagari Telugu', serif; }
+.hmeta  { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.hexp   { margin-top: 8px; padding: 8px 0; border-top: 1px solid var(--border); font-size: 12px; color: var(--text); line-height: 1.6; }
+.hright { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; }
+.hconf  { font-size: 12px; font-weight: 600; }
+.hsev   { font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 99px; }
+.hstats { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-bottom: 1.25rem; }
+.hstat  { background: var(--bg); border-radius: var(--rs); padding: 10px; text-align: center; }
+.hstat-n { font-size: 20px; font-weight: 600; }
+.hstat-l { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.hfilt  { display: flex; gap: 6px; margin-bottom: 1rem; flex-wrap: wrap; }
+.hf     { padding: 4px 12px; border-radius: 99px; font-size: 12px; font-weight: 500; cursor: pointer; border: 1px solid var(--border); background: transparent; color: var(--muted); transition: all .15s; }
+.hf.active { background: var(--green); color: #fff; border-color: var(--green); }
+.hempty { text-align: center; padding: 3rem 1rem; color: var(--muted); }
+
+/* ── AI Chatbot floating bubble ── */
+.chat-fab {
+  position: fixed; bottom: 24px; right: 24px;
+  width: 56px; height: 56px; border-radius: 50%;
+  background: var(--green); color: #fff; border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px; box-shadow: 0 4px 16px rgba(29,158,117,.45);
+  z-index: 500; transition: all .2s;
+}
+.chat-fab:hover       { transform: scale(1.1); box-shadow: 0 6px 24px rgba(29,158,117,.55); }
+.chat-fab.open        { background: var(--red); }
+.chat-drawer {
+  position: fixed; bottom: 90px; right: 24px;
+  width: 340px; max-height: 520px;
+  background: var(--surface); border-radius: var(--r); border: 1px solid var(--border);
+  box-shadow: 0 8px 40px rgba(0,0,0,.18); z-index: 499;
+  display: flex; flex-direction: column; overflow: hidden;
+  animation: chatslide .25s ease;
+}
+@keyframes chatslide { from { opacity: 0; transform: translateY(20px) scale(.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
+.chat-head       { background: var(--green); color: #fff; padding: 12px 16px; display: flex; align-items: center; gap: 10px; }
+.chat-head-info  { flex: 1; }
+.chat-head-title { font-size: 14px; font-weight: 600; }
+.chat-head-sub   { font-size: 11px; opacity: .8; }
+.chat-messages   { flex: 1; overflow-y: auto; padding: 12px; display: flex; flex-direction: column; gap: 8px; max-height: 340px; }
+.chat-msg        { max-width: 85%; padding: 9px 12px; border-radius: 12px; font-size: 13px; line-height: 1.5; word-break: break-word; }
+.chat-msg.user   { background: var(--green); color: #fff; align-self: flex-end; border-bottom-right-radius: 3px; }
+.chat-msg.bot    { background: var(--bg); color: var(--text); align-self: flex-start; border-bottom-left-radius: 3px; border: 1px solid var(--border); }
+.chat-msg.typing { opacity: .6; font-style: italic; }
+.chat-foot       { padding: 10px; border-top: 1px solid var(--border); display: flex; gap: 6px; }
+.chat-input      { flex: 1; padding: 8px 12px; border-radius: 99px; border: 1px solid var(--border); font-size: 13px; background: var(--bg); color: var(--text); outline: none; }
+.chat-input:focus { border-color: var(--green); }
+.chat-send       { width: 36px; height: 36px; border-radius: 50%; background: var(--green); color: #fff; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+.chat-send:hover { background: var(--green-d); }
+.chat-chips      { display: flex; gap: 5px; flex-wrap: wrap; padding: 0 12px 8px; }
+.chip { font-size: 11px; padding: 4px 10px; border-radius: 99px; border: 1px solid var(--border); background: transparent; cursor: pointer; color: var(--muted); transition: all .15s; white-space: nowrap; }
+.chip:hover { background: var(--green-l); border-color: var(--green); color: var(--green-d); }
+@media (max-width: 400px) { .chat-drawer { width: calc(100vw - 32px); right: 16px; } }
+
+/* ── Weather widget ── */
+.weather-widget  { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px,1fr)); gap: 10px; margin-bottom: 1rem; }
+.weather-card    { background: var(--surface); border: .5px solid var(--border); border-radius: var(--rs); padding: 12px 14px; text-align: center; position: relative; overflow: hidden; }
+.weather-icon    { font-size: 28px; margin-bottom: 4px; }
+.weather-val     { font-size: 22px; font-weight: 600; color: var(--text); }
+.weather-label   { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.weather-sub     { font-size: 11px; color: var(--muted); margin-top: 1px; }
+.weather-bar     { height: 3px; border-radius: 99px; margin-top: 6px; overflow: hidden; background: var(--bg); }
+.weather-bar-fill { height: 100%; border-radius: 99px; transition: width 1s ease; }
+.weather-loading { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 14px; color: var(--muted); font-size: 13px; background: var(--surface); border-radius: var(--rs); border: .5px solid var(--border); }

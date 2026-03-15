@@ -1,0 +1,80 @@
+/* ══════════════════════════════════════════
+   styles/base.css
+   CSS custom properties, reset, typography,
+   dark mode, and layout foundations.
+   ══════════════════════════════════════════ */
+
+/* ── Design tokens ── */
+:root {
+  --green:    #1D9E75;
+  --green-l:  #E1F5EE;
+  --green-d:  #085041;
+  --amber:    #EF9F27;
+  --amber-l:  #FAEEDA;
+  --amber-d:  #633806;
+  --red:      #E24B4A;
+  --red-l:    #FCEBEB;
+  --red-d:    #791F1F;
+  --purple-l: #EEEDFE;
+  --purple:   #7F77DD;
+  --purple-d: #3C3489;
+  --blue-l:   #E6F1FB;
+  --blue:     #378ADD;
+  --blue-d:   #0C447C;
+  --bg:       #F7F5F0;
+  --surface:  #FFF;
+  --border:   rgba(0,0,0,.08);
+  --text:     #1A1A1A;
+  --muted:    #6B6B6B;
+  --r:        12px;   /* border-radius large */
+  --rs:       8px;    /* border-radius small */
+}
+
+/* ── Dark mode overrides ── */
+body.dark {
+  --bg:       #0F1117;
+  --surface:  #1A1D27;
+  --border:   rgba(255,255,255,.08);
+  --text:     #F0F0F0;
+  --muted:    #9A9A9A;
+  --green-l:  #0D2B22;
+  --amber-l:  #2B1F08;
+  --red-l:    #2B0E0E;
+  --blue-l:   #0E1E2B;
+  --purple-l: #1A1840;
+}
+
+body.dark .card                        { background: var(--surface); }
+body.dark input, body.dark select      { background: #242736 !important; color: var(--text) !important; border-color: rgba(255,255,255,.12) !important; }
+body.dark .upzone                      { background: var(--green-l) !important; }
+body.dark .ntab:hover                  { background: rgba(29,158,117,.15); }
+body.dark .hitem:hover,
+body.dark .feat-row:hover              { background: rgba(255,255,255,.04); }
+
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── Base typography ── */
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* ── Page container ── */
+.page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+/* ── Section title ── */
+.stitle { font-size: 22px; font-weight: 600; margin-bottom: 1.5rem; }
+
+/* ── Responsive breakpoints ── */
+@media (max-width: 700px) {
+  .two     { grid-template-columns: 1fr; }
+  .nav-tabs { display: none; }
+  .tgrid   { grid-template-columns: 1fr; }
+}

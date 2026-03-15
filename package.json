@@ -1,0 +1,13 @@
+{
+  "name": "krishidost_modular",
+  "version": "1.0.0",
+  "description": "Smart Farming Platform for Andhra Pradesh & Telangana. AI-powered crop disease detection, mandi price intelligence, crop recommendation, govt schemes, insurance claim generation, and pest outbreak heatmap. Bilingual: English + Telugu.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}

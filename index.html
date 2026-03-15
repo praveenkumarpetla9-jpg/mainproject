@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>KrishiDost v2 — Smart Farming Platform</title>
+
+  <!-- External Libraries -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Telugu:ital@0;1&family=DM+Sans:wght@400;500;600&family=DM+Mono&display=swap" rel="stylesheet"/>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles/base.css"/>
+  <link rel="stylesheet" href="styles/components.css"/>
+  <link rel="stylesheet" href="styles/pages.css"/>
+</head>
+<body>
+<div id="root"></div>
+
+<!--
+  ╔══════════════════════════════════════════════════════════════╗
+  ║              KRISHIDOST MODULE STRUCTURE                     ║
+  ╠══════════════════════════════════════════════════════════════╣
+  ║  data/                                                       ║
+  ║    constants.js     — API url, districts, crop lists         ║
+  ║    treatments.js    — TX disease treatment database          ║
+  ║    priceData.js     — PX prices, FC forecast, BW buy-window  ║
+  ║    cropData.js      — CROP_DB, recommendation engine         ║
+  ║    schemesData.js   — SCHEMES_DB, matchSchemes engine        ║
+  ║    pestData.js      — PEST_TE translations, mandi locations  ║
+  ║    weatherData.js   — WEATHER_DATA per district              ║
+  ║                                                              ║
+  ║  components/                                                 ║
+  ║    Toast.js         — floating notification                  ║
+  ║    Nav.js           — top navigation bar                     ║
+  ║    WeatherWidget.js — dashboard weather cards                ║
+  ║    Chatbot.js       — floating AI farming assistant          ║
+  ║    Spark.js         — mini sparkline chart                   ║
+  ║                                                              ║
+  ║  pages/                                                      ║
+  ║    Home.js          — landing page with feature grid         ║
+  ║    DiseaseDetector.js — crop disease AI detection            ║
+  ║    Prices.js        — mandi price intelligence               ║
+  ║    CropRecommendation.js — ML crop advisor                   ║
+  ║    GovtSchemes.js   — eligibility wizard + scheme finder     ║
+  ║    CropInsurance.js — damage assessment + PDF claim          ║
+  ║    PestMap.js       — pest outbreak heatmap + reporting      ║
+  ║                                                              ║
+  ║  styles/                                                     ║
+  ║    base.css         — CSS variables, reset, typography       ║
+  ║    components.css   — shared UI components                   ║
+  ║    pages.css        — page-specific styles                   ║
+  ╚══════════════════════════════════════════════════════════════╝
+
+  NOTE: Because this app uses Babel/JSX in-browser (no bundler),
+  all JS files below are loaded as text/babel scripts in dependency
+  order. In a real build setup (Vite/webpack), these would be
+  proper ES modules with import/export statements.
+-->
+
+<!-- ── DATA LAYER ── -->
+<script type="text/babel" src="data/constants.js"></script>
+<script type="text/babel" src="data/treatments.js"></script>
+<script type="text/babel" src="data/priceData.js"></script>
+<script type="text/babel" src="data/cropData.js"></script>
+<script type="text/babel" src="data/schemesData.js"></script>
+<script type="text/babel" src="data/pestData.js"></script>
+<script type="text/babel" src="data/weatherData.js"></script>
+
+<!-- ── SHARED COMPONENTS ── -->
+<script type="text/babel" src="components/Toast.js"></script>
+<script type="text/babel" src="components/Nav.js"></script>
+<script type="text/babel" src="components/WeatherWidget.js"></script>
+<script type="text/babel" src="components/Chatbot.js"></script>
+<script type="text/babel" src="components/Spark.js"></script>
+
+<!-- ── PAGE COMPONENTS ── -->
+<script type="text/babel" src="pages/Home.js"></script>
+<script type="text/babel" src="pages/DiseaseDetector.js"></script>
+<script type="text/babel" src="pages/Prices.js"></script>
+<script type="text/babel" src="pages/CropRecommendation.js"></script>
+<script type="text/babel" src="pages/GovtSchemes.js"></script>
+<script type="text/babel" src="pages/CropInsurance.js"></script>
+<script type="text/babel" src="pages/PestMap.js"></script>
+
+<!-- ── ROOT APP ── -->
+<script type="text/babel">
+const {useState, useEffect} = React;
+
+function App() {
+  const [tab, setTab]     = useState('home');
+  const [lang, setLang]   = useState('EN');
+  const [toast, setToast] = useState(null);
+
+  // Dark mode — persisted in localStorage
+  const [dark, setDark] = useState(() => {
+    try { return localStorage.getItem('kd_dark') === '1'; } catch { return false; }
+  });
+
+  useEffect(() => {
+    document.body.classList.toggle('dark', dark);
+    try { localStorage.setItem('kd_dark', dark ? '1' : '0'); } catch {}
+  }, [dark]);
+
+  return (
+    <>
+      <Nav tab={tab} setTab={setTab} lang={lang} setLang={setLang} dark={dark} setDark={setDark}/>
+
+      {tab === 'home'      && <Home      setTab={setTab} lang={lang}/>}
+      {tab === 'disease'   && <DiseaseDetector  lang={lang} showToast={setToast}/>}
+      {tab === 'prices'    && <Prices    lang={lang} showToast={setToast}/>}
+      {tab === 'crop'      && <CropRecommendation lang={lang} showToast={setToast}/>}
+      {tab === 'schemes'   && <GovtSchemes lang={lang} showToast={setToast}/>}
+      {tab === 'insurance' && <CropInsurance lang={lang} showToast={setToast}/>}
+      {tab === 'pest'      && <PestMap   lang={lang} showToast={setToast}/>}
+
+      {toast && <Toast msg={toast} onClose={() => setToast(null)}/>}
+
+      {/* Floating chatbot — visible on all pages */}
+      <Chatbot lang={lang}/>
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>
