@@ -85,7 +85,7 @@ function CropRecommendation({ lang, showToast }) {
       <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', flexWrap:'wrap', gap:10, marginBottom:'1.5rem' }}>
         <h2 className="stitle" style={{ margin:0 }}>🌱 {TE ? 'పంట సిఫార్సు' : 'Crop Recommendation'}</h2>
         <div style={{ fontSize:12, color:'var(--muted)', background:'var(--purple-l)', borderRadius:'var(--rs)', padding:'4px 12px' }}>
-          {TE ? 'Random Forest ML మోడల్ శక్తితో' : 'Powered by Random Forest ML'}
+         
         </div>
       </div>
 
