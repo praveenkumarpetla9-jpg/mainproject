@@ -92,9 +92,72 @@
 <script type="text/babel">
 const {useState, useEffect} = React;
 
+// ── HowToUse ──────────────────────────────
+// Green gradient section shown only on the
+// home page, explaining the chatbot in 3 steps.
+function HowToUse({ lang }) {
+  const TE = lang === 'TE';
+
+  const steps = TE ? [
+    { num:'1', icon:'🤖', title:'క్లిక్ చేయండి',  desc:'కుడి క్రింద ఉన్న బటన్ క్లిక్ చేయండి' },
+    { num:'2', icon:'💬', title:'అడగండి',          desc:'తెలుగు లేదా ఇంగ్లీష్‌లో మీ ప్రశ్న అడగండి' },
+    { num:'3', icon:'✅', title:'సమాధానం పొందండి', desc:'వెంటనే ఖచ్చితమైన సమాధానం పొందండి' },
+  ] : [
+    { num:'1', icon:'🤖', title:'Click the Bot',  desc:'Tap the floating button on the bottom-right' },
+    { num:'2', icon:'💬', title:'Ask Anything',   desc:'Type your question in Telugu or English' },
+    { num:'3', icon:'✅', title:'Get Answers',    desc:'Receive instant, accurate farming advice' },
+  ];
+
+  return (
+    <section className="how-section">
+      <h2 className="how-title">
+        {TE ? 'ఎలా ఉపయోగించాలి?' : 'How to Use'}
+      </h2>
+      <div className="how-grid">
+        {steps.map(s => (
+          <div key={s.num} className="how-card">
+            <div className="how-num">{s.num}</div>
+            <div className="how-step-title">{s.icon} {s.title}</div>
+            <div className="how-step-desc">{s.desc}</div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+// ── SiteFooter ────────────────────────────
+// Minimal white footer with logo + copyright.
+// Shown on every page below the content.
+function SiteFooter({ lang }) {
+  const TE = lang === 'TE';
+  return (
+    <footer className="site-footer">
+      <div className="footer-logo">
+        <span>🌾</span>
+        <span>KrishiDost</span>
+      </div>
+      <p className="footer-copy">
+        {TE
+          ? '© 2025 కృషిదోస్త్ — AP & తెలంగాణ రైతుల కోసం ❤️ తో తయారు చేయబడింది'
+          : '© 2025 KrishiDost — Made with ❤️ for AP & Telangana Farmers'}
+      </p>
+      <div className="footer-links">
+        <a href="#">{TE ? 'గురించి' : 'About'}</a>
+        <a href="#">{TE ? 'సంప్రదించండి' : 'Contact'}</a>
+        <a href="#">{TE ? 'గోప్యత' : 'Privacy'}</a>
+        <a href="#">UDGAMA Hackathon 2025</a>
+      </div>
+    </footer>
+  );
+}
+
+// ── App ───────────────────────────────────
+// Root component. Manages global state:
+// active tab, language, dark mode, toast.
 function App() {
-  const [tab, setTab]     = useState('home');
-  const [lang, setLang]   = useState('EN');
+  const [tab,   setTab]   = useState('home');
+  const [lang,  setLang]  = useState('EN');
   const [toast, setToast] = useState(null);
 
   // Dark mode — persisted in localStorage
@@ -109,19 +172,28 @@ function App() {
 
   return (
     <>
+      {/* ── Top navigation ── */}
       <Nav tab={tab} setTab={setTab} lang={lang} setLang={setLang} dark={dark} setDark={setDark}/>
 
-      {tab === 'home'      && <Home      setTab={setTab} lang={lang}/>}
-      {tab === 'disease'   && <DiseaseDetector  lang={lang} showToast={setToast}/>}
-      {tab === 'prices'    && <Prices    lang={lang} showToast={setToast}/>}
+      {/* ── Page content ── */}
+      {tab === 'home'      && <Home           setTab={setTab} lang={lang}/>}
+      {tab === 'disease'   && <DiseaseDetector lang={lang} showToast={setToast}/>}
+      {tab === 'prices'    && <Prices          lang={lang} showToast={setToast}/>}
       {tab === 'crop'      && <CropRecommendation lang={lang} showToast={setToast}/>}
-      {tab === 'schemes'   && <GovtSchemes lang={lang} showToast={setToast}/>}
-      {tab === 'insurance' && <CropInsurance lang={lang} showToast={setToast}/>}
-      {tab === 'pest'      && <PestMap   lang={lang} showToast={setToast}/>}
+      {tab === 'schemes'   && <GovtSchemes     lang={lang} showToast={setToast}/>}
+      {tab === 'insurance' && <CropInsurance   lang={lang} showToast={setToast}/>}
+      {tab === 'pest'      && <PestMap         lang={lang} showToast={setToast}/>}
 
+      {/* ── How to Use — shown only on home page ── */}
+      {tab === 'home' && <HowToUse lang={lang}/>}
+
+      {/* ── Footer — shown on every page ── */}
+      <SiteFooter lang={lang}/>
+
+      {/* ── Toast notification ── */}
       {toast && <Toast msg={toast} onClose={() => setToast(null)}/>}
 
-      {/* Floating chatbot — visible on all pages */}
+      {/* ── Floating chatbot — visible on all pages ── */}
       <Chatbot lang={lang}/>
     </>
   );
